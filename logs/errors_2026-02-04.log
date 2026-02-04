@@ -1,0 +1,13 @@
+2026-02-04 16:15:39.736 | ERROR    | __main__:run_all_tests:202 | FAILED: Basic Capture - XGetImage() failed
+2026-02-04 16:15:39.739 | ERROR    | __main__:run_all_tests:202 | FAILED: Cache Behavior - XGetImage() failed
+2026-02-04 16:15:39.741 | ERROR    | __main__:run_all_tests:202 | FAILED: Cache Bypass - XGetImage() failed
+2026-02-04 16:15:39.744 | ERROR    | __main__:run_all_tests:202 | FAILED: Region Capture - XGetImage() failed
+2026-02-04 16:15:39.746 | ERROR    | __main__:run_all_tests:202 | FAILED: Capture Performance - XGetImage() failed
+2026-02-04 16:15:39.748 | ERROR    | __main__:run_all_tests:202 | FAILED: Save Capture - XGetImage() failed
+2026-02-04 16:15:39.750 | ERROR    | __main__:run_all_tests:202 | FAILED: Dimensions - XGetImage() failed
+2026-02-04 16:16:15.759 | ERROR    | __main__:run_all_tests:222 | FAILED: Cache Logic - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:16:15.767 | ERROR    | __main__:run_all_tests:222 | FAILED: Cache Bypass - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:16:15.774 | ERROR    | __main__:run_all_tests:222 | FAILED: Invalidate Cache - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:16:15.779 | ERROR    | __main__:run_all_tests:222 | FAILED: Frame Conversion - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:19:52.967 | ERROR    | __main__:run_all_tests:336 | FAILED: Single Match - X should be 100, got 0
+2026-02-04 16:19:53.022 | ERROR    | __main__:run_all_tests:336 | FAILED: No Match Scenario - Should not find template in empty screen

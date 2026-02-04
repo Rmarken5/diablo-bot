@@ -1,0 +1,26 @@
+# D2R Bot Dependencies
+
+# Screen capture
+mss>=9.0.0
+
+# Computer vision
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# OCR
+pytesseract>=0.3.10
+
+# Input simulation
+pydirectinput>=1.0.4
+
+# Configuration
+PyYAML>=6.0
+
+# CLI
+click>=8.1.0
+
+# Logging
+loguru>=0.7.0
+
+# Windows API (for window management) - Windows only
+# pywin32>=306  # Uncomment on Windows

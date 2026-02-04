@@ -1,0 +1,325 @@
+2026-02-04 16:08:44.281 | INFO     | __main__:start:56 | ==================================================
+2026-02-04 16:08:44.282 | INFO     | __main__:start:57 | D2R Bot Starting
+2026-02-04 16:08:44.282 | INFO     | __main__:start:58 | ==================================================
+2026-02-04 16:08:44.282 | INFO     | __main__:start:59 | Run type: pindle
+2026-02-04 16:08:44.282 | INFO     | __main__:start:60 | Run count: infinite
+2026-02-04 16:08:44.283 | INFO     | __main__:start:61 | Log level: INFO
+2026-02-04 16:08:44.283 | INFO     | __main__:start:64 | Bot initialization not yet implemented
+2026-02-04 16:08:44.283 | INFO     | __main__:start:65 | This is Step 1 - Project Setup complete!
+2026-02-04 16:15:39.634 | INFO     | __main__:run_all_tests:174 | ==================================================
+2026-02-04 16:15:39.634 | INFO     | __main__:run_all_tests:175 | Screen Capture Tests
+2026-02-04 16:15:39.635 | INFO     | __main__:run_all_tests:176 | ==================================================
+2026-02-04 16:15:39.635 | INFO     | __main__:run_all_tests:193 | 
+--- Basic Capture ---
+2026-02-04 16:15:39.635 | INFO     | __main__:test_basic_capture:17 | Testing basic screen capture...
+2026-02-04 16:15:39.736 | ERROR    | __main__:run_all_tests:202 | FAILED: Basic Capture - XGetImage() failed
+2026-02-04 16:15:39.737 | INFO     | __main__:run_all_tests:193 | 
+--- Cache Behavior ---
+2026-02-04 16:15:39.737 | INFO     | __main__:test_cache_behavior:36 | Testing cache behavior...
+2026-02-04 16:15:39.739 | ERROR    | __main__:run_all_tests:202 | FAILED: Cache Behavior - XGetImage() failed
+2026-02-04 16:15:39.740 | INFO     | __main__:run_all_tests:193 | 
+--- Cache Bypass ---
+2026-02-04 16:15:39.740 | INFO     | __main__:test_cache_bypass:66 | Testing cache bypass...
+2026-02-04 16:15:39.741 | ERROR    | __main__:run_all_tests:202 | FAILED: Cache Bypass - XGetImage() failed
+2026-02-04 16:15:39.742 | INFO     | __main__:run_all_tests:193 | 
+--- Region Capture ---
+2026-02-04 16:15:39.742 | INFO     | __main__:test_region_capture:84 | Testing region capture...
+2026-02-04 16:15:39.744 | ERROR    | __main__:run_all_tests:202 | FAILED: Region Capture - XGetImage() failed
+2026-02-04 16:15:39.744 | INFO     | __main__:run_all_tests:193 | 
+--- Capture Performance ---
+2026-02-04 16:15:39.744 | INFO     | __main__:test_capture_performance:102 | Testing capture performance...
+2026-02-04 16:15:39.746 | ERROR    | __main__:run_all_tests:202 | FAILED: Capture Performance - XGetImage() failed
+2026-02-04 16:15:39.746 | INFO     | __main__:run_all_tests:193 | 
+--- Save Capture ---
+2026-02-04 16:15:39.746 | INFO     | __main__:test_save_capture:131 | Testing save capture...
+2026-02-04 16:15:39.748 | ERROR    | __main__:run_all_tests:202 | FAILED: Save Capture - XGetImage() failed
+2026-02-04 16:15:39.748 | INFO     | __main__:run_all_tests:193 | 
+--- Dimensions ---
+2026-02-04 16:15:39.748 | INFO     | __main__:test_dimensions:158 | Testing get_frame_dimensions...
+2026-02-04 16:15:39.750 | ERROR    | __main__:run_all_tests:202 | FAILED: Dimensions - XGetImage() failed
+2026-02-04 16:15:39.750 | INFO     | __main__:run_all_tests:205 | 
+==================================================
+2026-02-04 16:15:39.750 | INFO     | __main__:run_all_tests:206 | Results: 0 passed, 7 failed
+2026-02-04 16:15:39.751 | INFO     | __main__:run_all_tests:207 | ==================================================
+2026-02-04 16:16:15.715 | INFO     | __main__:run_all_tests:195 | ==================================================
+2026-02-04 16:16:15.716 | INFO     | __main__:run_all_tests:196 | Screen Capture Unit Tests
+2026-02-04 16:16:15.716 | INFO     | __main__:run_all_tests:197 | ==================================================
+2026-02-04 16:16:15.717 | INFO     | __main__:run_all_tests:214 | 
+--- Cache Logic ---
+2026-02-04 16:16:15.717 | INFO     | __main__:test_cache_logic:30 | Testing cache logic...
+2026-02-04 16:16:15.759 | ERROR    | __main__:run_all_tests:222 | FAILED: Cache Logic - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:16:15.765 | INFO     | __main__:run_all_tests:214 | 
+--- Cache Bypass ---
+2026-02-04 16:16:15.765 | INFO     | __main__:test_cache_bypass:64 | Testing cache bypass...
+2026-02-04 16:16:15.767 | ERROR    | __main__:run_all_tests:222 | FAILED: Cache Bypass - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:16:15.771 | INFO     | __main__:run_all_tests:214 | 
+--- Invalidate Cache ---
+2026-02-04 16:16:15.771 | INFO     | __main__:test_invalidate_cache:90 | Testing cache invalidation...
+2026-02-04 16:16:15.774 | ERROR    | __main__:run_all_tests:222 | FAILED: Invalidate Cache - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:16:15.777 | INFO     | __main__:run_all_tests:214 | 
+--- Frame Conversion ---
+2026-02-04 16:16:15.777 | INFO     | __main__:test_frame_conversion:118 | Testing frame conversion...
+2026-02-04 16:16:15.779 | ERROR    | __main__:run_all_tests:222 | FAILED: Frame Conversion - 'MSS' object attribute 'grab' is read-only
+2026-02-04 16:16:15.783 | INFO     | __main__:run_all_tests:214 | 
+--- Region Monitor Building ---
+2026-02-04 16:16:15.783 | INFO     | __main__:test_region_monitor_building:141 | Testing region monitor building...
+2026-02-04 16:16:15.784 | INFO     | __main__:test_region_monitor_building:154 | PASSED: Region monitor building
+2026-02-04 16:16:15.784 | INFO     | __main__:run_all_tests:214 | 
+--- Window Detection Fallback ---
+2026-02-04 16:16:15.785 | INFO     | __main__:test_window_detection_fallback:161 | Testing window detection fallback...
+2026-02-04 16:16:15.786 | INFO     | __main__:test_window_detection_fallback:171 | PASSED: Window detection fallback
+2026-02-04 16:16:15.786 | INFO     | __main__:run_all_tests:214 | 
+--- Is Game Running ---
+2026-02-04 16:16:15.787 | INFO     | __main__:test_is_game_running:178 | Testing is_game_running...
+2026-02-04 16:16:15.788 | INFO     | __main__:test_is_game_running:186 | PASSED: is_game_running returned True
+2026-02-04 16:16:15.788 | INFO     | __main__:run_all_tests:227 | 
+==================================================
+2026-02-04 16:16:15.788 | INFO     | __main__:run_all_tests:228 | Results: 3 passed, 4 failed
+2026-02-04 16:16:15.788 | INFO     | __main__:run_all_tests:229 | ==================================================
+2026-02-04 16:16:28.238 | INFO     | __main__:<module>:10 | ScreenCapture instantiated successfully
+2026-02-04 16:16:28.238 | INFO     | __main__:<module>:11 | Window title: Diablo II: Resurrected
+2026-02-04 16:16:28.238 | INFO     | __main__:<module>:12 | Cache duration: 0.04ms
+2026-02-04 16:16:28.239 | INFO     | __main__:<module>:13 | Game running check: True
+2026-02-04 16:16:28.239 | INFO     | __main__:<module>:18 | Monitor from region: {'left': 100, 'top': 200, 'width': 300, 'height': 400}
+2026-02-04 16:19:52.933 | INFO     | __main__:run_all_tests:301 | ==================================================
+2026-02-04 16:19:52.934 | INFO     | __main__:run_all_tests:302 | Template Matcher Tests
+2026-02-04 16:19:52.934 | INFO     | __main__:run_all_tests:303 | ==================================================
+2026-02-04 16:19:52.934 | INFO     | __main__:run_all_tests:306 | 
+Creating test assets...
+2026-02-04 16:19:52.946 | INFO     | __main__:run_all_tests:328 | 
+--- Match Dataclass ---
+2026-02-04 16:19:52.946 | INFO     | __main__:test_match_dataclass:54 | Testing Match dataclass...
+2026-02-04 16:19:52.946 | INFO     | __main__:test_match_dataclass:63 | PASSED: Match dataclass
+2026-02-04 16:19:52.946 | INFO     | __main__:run_all_tests:328 | 
+--- Template Loading ---
+2026-02-04 16:19:52.946 | INFO     | __main__:test_template_loading:70 | Testing template loading...
+2026-02-04 16:19:52.947 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/nonexistent.png
+2026-02-04 16:19:52.947 | INFO     | __main__:test_template_loading:90 | PASSED: Template loading
+2026-02-04 16:19:52.947 | INFO     | __main__:run_all_tests:328 | 
+--- Single Match ---
+2026-02-04 16:19:52.947 | INFO     | __main__:test_single_match:97 | Testing single match...
+2026-02-04 16:19:52.967 | ERROR    | __main__:run_all_tests:336 | FAILED: Single Match - X should be 100, got 0
+2026-02-04 16:19:52.969 | INFO     | __main__:run_all_tests:328 | 
+--- Multi Match ---
+2026-02-04 16:19:52.969 | INFO     | __main__:test_multi_match:120 | Testing multi match...
+2026-02-04 16:19:52.991 | INFO     | __main__:test_multi_match:135 | Found 3 patterns
+2026-02-04 16:19:52.991 | INFO     | __main__:test_multi_match:137 |   Match 1: (300, 200) conf=1.000
+2026-02-04 16:19:52.991 | INFO     | __main__:test_multi_match:137 |   Match 2: (500, 50) conf=1.000
+2026-02-04 16:19:52.992 | INFO     | __main__:test_multi_match:137 |   Match 3: (400, 350) conf=1.000
+2026-02-04 16:19:52.992 | INFO     | __main__:test_multi_match:139 | PASSED: Multi match
+2026-02-04 16:19:52.992 | INFO     | __main__:run_all_tests:328 | 
+--- Threshold Filtering ---
+2026-02-04 16:19:52.992 | INFO     | __main__:test_threshold_filtering:146 | Testing threshold filtering...
+2026-02-04 16:19:53.019 | INFO     | __main__:test_threshold_filtering:159 | PASSED: Threshold filtering
+2026-02-04 16:19:53.020 | INFO     | __main__:run_all_tests:328 | 
+--- No Match Scenario ---
+2026-02-04 16:19:53.020 | INFO     | __main__:test_no_match:166 | Testing no match scenario...
+2026-02-04 16:19:53.022 | ERROR    | __main__:run_all_tests:336 | FAILED: No Match Scenario - Should not find template in empty screen
+2026-02-04 16:19:53.023 | INFO     | __main__:run_all_tests:328 | 
+--- Find Any ---
+2026-02-04 16:19:53.024 | INFO     | __main__:test_find_any:184 | Testing find_any...
+2026-02-04 16:19:53.028 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/nonexistent.png
+2026-02-04 16:19:53.040 | INFO     | __main__:test_find_any:197 | Found 'red_square' at (0, 0)
+2026-02-04 16:19:53.041 | INFO     | __main__:test_find_any:198 | PASSED: find_any
+2026-02-04 16:19:53.041 | INFO     | __main__:run_all_tests:328 | 
+--- Find Best ---
+2026-02-04 16:19:53.041 | INFO     | __main__:test_find_best:205 | Testing find_best...
+2026-02-04 16:19:53.071 | INFO     | __main__:test_find_best:216 | Best match: 'red_square' conf=1.000
+2026-02-04 16:19:53.072 | INFO     | __main__:test_find_best:218 | PASSED: find_best
+2026-02-04 16:19:53.072 | INFO     | __main__:run_all_tests:328 | 
+--- Draw Match ---
+2026-02-04 16:19:53.072 | INFO     | __main__:test_draw_match:225 | Testing draw_match...
+2026-02-04 16:19:53.095 | INFO     | __main__:test_draw_match:242 | Saved annotated image to tests/test_assets/test_output_draw.png
+2026-02-04 16:19:53.095 | INFO     | __main__:test_draw_match:243 | PASSED: draw_match
+2026-02-04 16:19:53.095 | INFO     | __main__:run_all_tests:328 | 
+--- Nearby Filtering ---
+2026-02-04 16:19:53.096 | INFO     | __main__:test_nearby_filtering:250 | Testing nearby filtering...
+2026-02-04 16:19:53.096 | INFO     | __main__:test_nearby_filtering:271 | Filtered 4 matches down to 2
+2026-02-04 16:19:53.096 | INFO     | __main__:test_nearby_filtering:272 | PASSED: nearby filtering
+2026-02-04 16:19:53.096 | INFO     | __main__:run_all_tests:328 | 
+--- Preload Templates ---
+2026-02-04 16:19:53.096 | INFO     | __main__:test_preload_templates:279 | Testing preload_templates...
+2026-02-04 16:19:53.097 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/nonexistent.png
+2026-02-04 16:19:53.097 | INFO     | src.vision.template_matcher:preload_templates:405 | Preloaded 2/3 templates
+2026-02-04 16:19:53.097 | INFO     | __main__:test_preload_templates:292 | PASSED: preload_templates
+2026-02-04 16:19:53.097 | INFO     | __main__:run_all_tests:341 | 
+==================================================
+2026-02-04 16:19:53.097 | INFO     | __main__:run_all_tests:342 | Results: 9 passed, 2 failed
+2026-02-04 16:19:53.098 | INFO     | __main__:run_all_tests:343 | ==================================================
+2026-02-04 16:20:42.592 | INFO     | __main__:run_all_tests:303 | ==================================================
+2026-02-04 16:20:42.593 | INFO     | __main__:run_all_tests:304 | Template Matcher Tests
+2026-02-04 16:20:42.593 | INFO     | __main__:run_all_tests:305 | ==================================================
+2026-02-04 16:20:42.593 | INFO     | __main__:run_all_tests:308 | 
+Creating test assets...
+2026-02-04 16:20:42.606 | INFO     | __main__:run_all_tests:330 | 
+--- Match Dataclass ---
+2026-02-04 16:20:42.606 | INFO     | __main__:test_match_dataclass:54 | Testing Match dataclass...
+2026-02-04 16:20:42.606 | INFO     | __main__:test_match_dataclass:63 | PASSED: Match dataclass
+2026-02-04 16:20:42.607 | INFO     | __main__:run_all_tests:330 | 
+--- Template Loading ---
+2026-02-04 16:20:42.607 | INFO     | __main__:test_template_loading:70 | Testing template loading...
+2026-02-04 16:20:42.607 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/nonexistent.png
+2026-02-04 16:20:42.608 | INFO     | __main__:test_template_loading:90 | PASSED: Template loading
+2026-02-04 16:20:42.608 | INFO     | __main__:run_all_tests:330 | 
+--- Single Match ---
+2026-02-04 16:20:42.608 | INFO     | __main__:test_single_match:97 | Testing single match...
+2026-02-04 16:20:42.630 | INFO     | __main__:test_single_match:113 | Found pattern at (300, 200) conf=1.000
+2026-02-04 16:20:42.631 | INFO     | __main__:test_single_match:114 | PASSED: Single match
+2026-02-04 16:20:42.631 | INFO     | __main__:run_all_tests:330 | 
+--- Multi Match ---
+2026-02-04 16:20:42.631 | INFO     | __main__:test_multi_match:121 | Testing multi match...
+2026-02-04 16:20:42.652 | INFO     | __main__:test_multi_match:136 | Found 3 patterns
+2026-02-04 16:20:42.653 | INFO     | __main__:test_multi_match:138 |   Match 1: (300, 200) conf=1.000
+2026-02-04 16:20:42.653 | INFO     | __main__:test_multi_match:138 |   Match 2: (500, 50) conf=1.000
+2026-02-04 16:20:42.653 | INFO     | __main__:test_multi_match:138 |   Match 3: (400, 350) conf=1.000
+2026-02-04 16:20:42.653 | INFO     | __main__:test_multi_match:140 | PASSED: Multi match
+2026-02-04 16:20:42.654 | INFO     | __main__:run_all_tests:330 | 
+--- Threshold Filtering ---
+2026-02-04 16:20:42.654 | INFO     | __main__:test_threshold_filtering:147 | Testing threshold filtering...
+2026-02-04 16:20:42.681 | INFO     | __main__:test_threshold_filtering:160 | PASSED: Threshold filtering
+2026-02-04 16:20:42.681 | INFO     | __main__:run_all_tests:330 | 
+--- No Match Scenario ---
+2026-02-04 16:20:42.682 | INFO     | __main__:test_no_match:167 | Testing no match scenario...
+2026-02-04 16:20:42.703 | INFO     | __main__:test_no_match:179 | PASSED: No match scenario
+2026-02-04 16:20:42.704 | INFO     | __main__:run_all_tests:330 | 
+--- Find Any ---
+2026-02-04 16:20:42.704 | INFO     | __main__:test_find_any:186 | Testing find_any...
+2026-02-04 16:20:42.708 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/nonexistent.png
+2026-02-04 16:20:42.720 | INFO     | __main__:test_find_any:199 | Found 'red_square' at (0, 0)
+2026-02-04 16:20:42.721 | INFO     | __main__:test_find_any:200 | PASSED: find_any
+2026-02-04 16:20:42.721 | INFO     | __main__:run_all_tests:330 | 
+--- Find Best ---
+2026-02-04 16:20:42.721 | INFO     | __main__:test_find_best:207 | Testing find_best...
+2026-02-04 16:20:42.752 | INFO     | __main__:test_find_best:218 | Best match: 'red_square' conf=1.000
+2026-02-04 16:20:42.752 | INFO     | __main__:test_find_best:220 | PASSED: find_best
+2026-02-04 16:20:42.752 | INFO     | __main__:run_all_tests:330 | 
+--- Draw Match ---
+2026-02-04 16:20:42.752 | INFO     | __main__:test_draw_match:227 | Testing draw_match...
+2026-02-04 16:20:42.776 | INFO     | __main__:test_draw_match:244 | Saved annotated image to tests/test_assets/test_output_draw.png
+2026-02-04 16:20:42.776 | INFO     | __main__:test_draw_match:245 | PASSED: draw_match
+2026-02-04 16:20:42.776 | INFO     | __main__:run_all_tests:330 | 
+--- Nearby Filtering ---
+2026-02-04 16:20:42.776 | INFO     | __main__:test_nearby_filtering:252 | Testing nearby filtering...
+2026-02-04 16:20:42.776 | INFO     | __main__:test_nearby_filtering:273 | Filtered 4 matches down to 2
+2026-02-04 16:20:42.777 | INFO     | __main__:test_nearby_filtering:274 | PASSED: nearby filtering
+2026-02-04 16:20:42.777 | INFO     | __main__:run_all_tests:330 | 
+--- Preload Templates ---
+2026-02-04 16:20:42.777 | INFO     | __main__:test_preload_templates:281 | Testing preload_templates...
+2026-02-04 16:20:42.778 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/nonexistent.png
+2026-02-04 16:20:42.778 | INFO     | src.vision.template_matcher:preload_templates:405 | Preloaded 2/3 templates
+2026-02-04 16:20:42.778 | INFO     | __main__:test_preload_templates:294 | PASSED: preload_templates
+2026-02-04 16:20:42.778 | INFO     | __main__:run_all_tests:343 | 
+==================================================
+2026-02-04 16:20:42.778 | INFO     | __main__:run_all_tests:344 | Results: 11 passed, 0 failed
+2026-02-04 16:20:42.778 | INFO     | __main__:run_all_tests:345 | ==================================================
+2026-02-04 16:20:52.847 | INFO     | __main__:<module>:8 | Imports successful
+2026-02-04 16:20:52.848 | INFO     | __main__:<module>:12 | Match center: (125, 215)
+2026-02-04 16:20:52.848 | INFO     | __main__:<module>:13 | Match confidence: 0.95
+2026-02-04 16:20:52.848 | INFO     | __main__:<module>:17 | TemplateMatcher template_dir: assets/templates
+2026-02-04 16:20:52.848 | INFO     | __main__:<module>:18 | TemplateMatcher default_threshold: 0.8
+2026-02-04 16:29:26.431 | INFO     | __main__:run_all_tests:381 | ==================================================
+2026-02-04 16:29:26.432 | INFO     | __main__:run_all_tests:382 | Game State Detector Tests
+2026-02-04 16:29:26.432 | INFO     | __main__:run_all_tests:383 | ==================================================
+2026-02-04 16:29:26.432 | INFO     | __main__:run_all_tests:386 | 
+Creating test templates...
+2026-02-04 16:29:26.434 | INFO     | __main__:run_all_tests:409 | 
+--- GameState Enum ---
+2026-02-04 16:29:26.435 | INFO     | __main__:test_game_state_enum:132 | Testing GameState enum...
+2026-02-04 16:29:26.435 | INFO     | __main__:test_game_state_enum:140 | GameState has 18 states
+2026-02-04 16:29:26.435 | INFO     | __main__:test_game_state_enum:141 | PASSED: GameState enum
+2026-02-04 16:29:26.435 | INFO     | __main__:run_all_tests:409 | 
+--- HealthStatus Dataclass ---
+2026-02-04 16:29:26.435 | INFO     | __main__:test_health_status_dataclass:148 | Testing HealthStatus dataclass...
+2026-02-04 16:29:26.435 | INFO     | __main__:test_health_status_dataclass:172 | PASSED: HealthStatus dataclass
+2026-02-04 16:29:26.435 | INFO     | __main__:run_all_tests:409 | 
+--- Detector Initialization ---
+2026-02-04 16:29:26.436 | INFO     | __main__:test_detector_initialization:179 | Testing detector initialization...
+2026-02-04 16:29:26.436 | INFO     | __main__:test_detector_initialization:187 | PASSED: Detector initialization
+2026-02-04 16:29:26.436 | INFO     | __main__:run_all_tests:409 | 
+--- Custom Resolution ---
+2026-02-04 16:29:26.436 | INFO     | __main__:test_custom_resolution:194 | Testing custom resolution...
+2026-02-04 16:29:26.436 | INFO     | __main__:test_custom_resolution:203 | PASSED: Custom resolution
+2026-02-04 16:29:26.436 | INFO     | __main__:run_all_tests:409 | 
+--- Detect Main Menu ---
+2026-02-04 16:29:26.436 | INFO     | __main__:test_detect_main_menu:210 | Testing main menu detection...
+2026-02-04 16:29:26.566 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/you_died.png
+2026-02-04 16:29:26.660 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/loading_bar.png
+2026-02-04 16:29:26.753 | INFO     | __main__:test_detect_main_menu:218 | Detected state: main_menu
+2026-02-04 16:29:26.754 | INFO     | __main__:test_detect_main_menu:221 | PASSED: Main menu detection
+2026-02-04 16:29:26.754 | INFO     | __main__:run_all_tests:409 | 
+--- Detect Death ---
+2026-02-04 16:29:26.755 | INFO     | __main__:test_detect_death:228 | Testing death detection...
+2026-02-04 16:29:26.874 | INFO     | __main__:test_detect_death:236 | Detected state: death
+2026-02-04 16:29:26.875 | INFO     | __main__:test_detect_death:239 | PASSED: Death detection
+2026-02-04 16:29:26.875 | INFO     | __main__:run_all_tests:409 | 
+--- Detect In-Game ---
+2026-02-04 16:29:26.875 | INFO     | __main__:test_detect_in_game:246 | Testing in-game detection...
+2026-02-04 16:29:26.995 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/you_died.png
+2026-02-04 16:29:27.088 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/loading_bar.png
+2026-02-04 16:29:27.178 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/play_button.png
+2026-02-04 16:29:27.178 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/character_select.png
+2026-02-04 16:29:27.179 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/char_list.png
+2026-02-04 16:29:27.179 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/disconnected.png
+2026-02-04 16:29:27.179 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/connection_lost.png
+2026-02-04 16:29:27.361 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/inventory_grid.png
+2026-02-04 16:29:27.362 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/stash_open.png
+2026-02-04 16:29:27.362 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/stash_tabs.png
+2026-02-04 16:29:27.362 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/waypoint_menu.png
+2026-02-04 16:29:27.363 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/waypoint_acts.png
+2026-02-04 16:29:27.363 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/npc_dialog.png
+2026-02-04 16:29:27.363 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/dialog_box.png
+2026-02-04 16:29:27.363 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/skill_tree.png
+2026-02-04 16:29:27.363 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/skill_points.png
+2026-02-04 16:29:27.364 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/stat_screen.png
+2026-02-04 16:29:27.364 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/hud/stat_points.png
+2026-02-04 16:29:27.364 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/paused.png
+2026-02-04 16:29:27.364 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/options_menu.png
+2026-02-04 16:29:27.364 | INFO     | __main__:test_detect_in_game:254 | Detected state: in_game
+2026-02-04 16:29:27.365 | INFO     | __main__:test_detect_in_game:257 | PASSED: In-game detection
+2026-02-04 16:29:27.365 | INFO     | __main__:run_all_tests:409 | 
+--- Health Detection ---
+2026-02-04 16:29:27.365 | INFO     | __main__:test_health_detection:264 | Testing health detection...
+2026-02-04 16:29:27.392 | INFO     | __main__:test_health_detection:271 | Full health detected: 100.00%
+2026-02-04 16:29:27.419 | INFO     | __main__:test_health_detection:276 | Half health detected: 79.94%
+2026-02-04 16:29:27.447 | INFO     | __main__:test_health_detection:281 | Low health detected: 33.78%
+2026-02-04 16:29:27.448 | INFO     | __main__:test_health_detection:286 | PASSED: Health detection
+2026-02-04 16:29:27.448 | INFO     | __main__:run_all_tests:409 | 
+--- Mana Detection ---
+2026-02-04 16:29:27.448 | INFO     | __main__:test_mana_detection:293 | Testing mana detection...
+2026-02-04 16:29:27.475 | INFO     | __main__:test_mana_detection:300 | Full mana detected: 100.00%
+2026-02-04 16:29:27.501 | INFO     | __main__:test_mana_detection:305 | Low mana detected: 30.77%
+2026-02-04 16:29:27.501 | INFO     | __main__:test_mana_detection:309 | PASSED: Mana detection
+2026-02-04 16:29:27.501 | INFO     | __main__:run_all_tests:409 | 
+--- Health Status ---
+2026-02-04 16:29:27.501 | INFO     | __main__:test_health_status:316 | Testing health status...
+2026-02-04 16:29:27.528 | INFO     | __main__:test_health_status:324 | Health: 25.58%
+2026-02-04 16:29:27.528 | INFO     | __main__:test_health_status:325 | Mana: 7.18%
+2026-02-04 16:29:27.528 | INFO     | __main__:test_health_status:326 | Low health: True
+2026-02-04 16:29:27.528 | INFO     | __main__:test_health_status:327 | Low mana: True
+2026-02-04 16:29:27.529 | INFO     | __main__:test_health_status:333 | PASSED: Health status
+2026-02-04 16:29:27.529 | INFO     | __main__:run_all_tests:409 | 
+--- Player Position ---
+2026-02-04 16:29:27.529 | INFO     | __main__:test_player_position:340 | Testing player position...
+2026-02-04 16:29:27.530 | INFO     | __main__:test_player_position:349 | Player position: (960, 540)
+2026-02-04 16:29:27.530 | INFO     | __main__:test_player_position:350 | PASSED: Player position
+2026-02-04 16:29:27.530 | INFO     | __main__:run_all_tests:409 | 
+--- State Caching ---
+2026-02-04 16:29:27.530 | INFO     | __main__:test_last_state_caching:357 | Testing state caching...
+2026-02-04 16:29:27.650 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/you_died.png
+2026-02-04 16:29:27.742 | WARNING  | src.vision.template_matcher:load_template:117 | Template not found: tests/test_assets/templates/screens/loading_bar.png
+2026-02-04 16:29:27.833 | INFO     | __main__:test_last_state_caching:372 | PASSED: State caching
+2026-02-04 16:29:27.833 | INFO     | __main__:run_all_tests:422 | 
+==================================================
+2026-02-04 16:29:27.833 | INFO     | __main__:run_all_tests:423 | Results: 12 passed, 0 failed
+2026-02-04 16:29:27.833 | INFO     | __main__:run_all_tests:424 | ==================================================
+2026-02-04 16:29:36.929 | INFO     | __main__:<module>:8 | Imports successful
+2026-02-04 16:29:36.930 | INFO     | __main__:<module>:11 | Available game states: 18
+2026-02-04 16:29:36.930 | INFO     | __main__:<module>:13 |   - main_menu
+2026-02-04 16:29:36.930 | INFO     | __main__:<module>:13 |   - character_select
+2026-02-04 16:29:36.930 | INFO     | __main__:<module>:13 |   - lobby
+2026-02-04 16:29:36.930 | INFO     | __main__:<module>:13 |   - create_game
+2026-02-04 16:29:36.930 | INFO     | __main__:<module>:13 |   - loading
+2026-02-04 16:29:36.931 | INFO     | __main__:<module>:14 |   ...
+2026-02-04 16:29:36.931 | INFO     | __main__:<module>:18 | Detector resolution: (1920, 1080)
+2026-02-04 16:29:36.931 | INFO     | __main__:<module>:19 | Health orb region: (30, 885, 150, 150)
+2026-02-04 16:29:36.931 | INFO     | __main__:<module>:20 | Low health threshold: 30%
