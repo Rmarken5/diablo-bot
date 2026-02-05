@@ -1,0 +1,60 @@
+# D2R Bot Pickit Rules
+# Defines which items to pick up
+
+# Always pick up these quality levels
+pickup_qualities:
+  - unique
+  - set
+  - rune
+
+# Elite bases worth picking up (for runewords)
+pickup_bases:
+  - monarch        # Spirit shield
+  - archon plate   # Enigma base
+  - sacred armor   # Enigma base
+  - dusk shroud    # Enigma base
+  - mage plate     # Stealth/CoH base
+  - diadem         # High-end helm
+  - wire fleece    # Light armor base
+  - great hauberk  # Medium armor base
+  - eth thresher   # Merc weapon
+  - eth giant thresher
+  - eth colossus voulge
+  - eth cryptic axe
+
+# Minimum gold pile to pick up
+gold_threshold: 5000
+
+# Specific rules (evaluated in order, first match wins)
+# Each rule can specify: quality, base_type, name_contains, pickup (true/false)
+rules:
+  # Pick up all rare rings/amulets
+  - quality: rare
+    base_type: ring
+    pickup: true
+
+  - quality: rare
+    base_type: amulet
+    pickup: true
+
+  # Pick up magic jewels (for facets)
+  - quality: magic
+    base_type: jewel
+    pickup: true
+
+  # Pick up all charms
+  - base_type: small charm
+    pickup: true
+
+  - base_type: large charm
+    pickup: true
+
+  - base_type: grand charm
+    pickup: true
+
+  # Skip normal/magic items by default (unless matched above)
+  - quality: normal
+    pickup: false
+
+  - quality: magic
+    pickup: false

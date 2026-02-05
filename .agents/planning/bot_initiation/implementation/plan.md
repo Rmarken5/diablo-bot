@@ -6,12 +6,12 @@
 - [x] Step 2: Screen Capture Module
 - [x] Step 3: Template Matching System
 - [x] Step 4: Game State Detection
-- [ ] Step 5: Input Controller with Human-Like Movement
-- [ ] Step 6: Configuration System
-- [ ] Step 7: State Machine Foundation
-- [ ] Step 8: Basic Game Interaction (Menu Navigation)
-- [ ] Step 9: Town Navigation and NPC Interaction
-- [ ] Step 10: Combat System (Sorceress)
+- [x] Step 5: Input Controller with Human-Like Movement
+- [x] Step 6: Configuration System
+- [x] Step 7: State Machine Foundation
+- [x] Step 8: Basic Game Interaction (Menu Navigation)
+- [x] Step 9: Town Navigation and NPC Interaction
+- [x] Step 10: Combat System (Sorceress)
 - [ ] Step 11: Health Monitoring and Chicken System
 - [ ] Step 12: Pindleskin Run Implementation
 - [ ] Step 13: Loot Detection and Pickup

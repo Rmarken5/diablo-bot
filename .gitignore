@@ -1,1 +1,18 @@
-/.idea/
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+*.egg-info/
+
+# Logs
+logs/
+*.log
+
+# Test artifacts
+tests/test_assets/
+test_captures/

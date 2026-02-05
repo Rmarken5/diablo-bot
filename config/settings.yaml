@@ -1,0 +1,51 @@
+# D2R Bot Configuration
+# Edit this file to customize bot behavior
+
+general:
+  game_path: "C:/Program Files (x86)/Diablo II Resurrected"
+  window_title: "Diablo II: Resurrected"
+  resolution: [1920, 1080]
+
+character:
+  name: "BotSorc"
+  class: "sorceress"
+  build: "blizzard_leveling"
+
+runs:
+  enabled:
+    - pindleskin
+  count: 0  # 0 = infinite
+
+safety:
+  chicken_health: 30  # Exit game if health drops below this %
+  chicken_mana: 0     # Exit game if mana drops below this %
+  max_deaths: 5       # Stop bot after this many deaths per session
+
+timing:
+  action_delay_ms: 50   # Base delay between actions
+  human_like: true      # Use human-like mouse movement
+  mouse_speed: "normal" # slow, normal, fast
+
+logging:
+  level: "INFO"           # DEBUG, INFO, WARNING, ERROR
+  directory: "logs"
+  screenshots: true
+  screenshot_dir: "screenshots"
+
+# D2R default hotkeys - modify if you've rebound keys
+hotkeys:
+  skill_left: "f1"
+  skill_right: "f2"
+  teleport: "f3"
+  blizzard: "f4"
+  static_field: "f5"
+  frozen_armor: "f6"
+  town_portal: "t"
+  show_items: "alt"
+  inventory: "i"
+  character_screen: "c"
+  skill_tree: "k"
+  potion_1: "1"
+  potion_2: "2"
+  potion_3: "3"
+  potion_4: "4"

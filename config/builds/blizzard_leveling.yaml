@@ -1,0 +1,114 @@
+# Blizzard Sorceress Leveling Build
+# Levels 1-75 with respec at level 26
+
+description: |
+  Nova leveling until 26, then respec to Blizzard.
+  Focus on maxing Blizzard synergies for Hell Mephisto/Pindleskin.
+
+stats:
+  priority:
+    - vitality    # Pump vit first
+    - strength    # Enough for gear
+  strength_target: 156  # For Monarch shield
+  dexterity_target: 0   # No dex needed
+
+skills:
+  # Skill hotkey assignments for this build
+  hotkeys:
+    blizzard: "f4"
+    glacial_spike: "f5"
+    ice_blast: "f6"
+    teleport: "f3"
+    static_field: "f2"
+    frozen_armor: "f1"
+
+  # Skill progression by level
+  # Format: level: [skill1, skill2, ...]
+  # Multiple skills = multiple points at that level
+  progression:
+    # Phase 1: Nova Leveling (1-25)
+    2: [fire_bolt]
+    3: [fire_bolt]
+    4: [fire_bolt]
+    5: [fire_bolt]
+    6: [static_field, telekinesis]
+    7: [static_field]
+    8: [nova]
+    9: [nova]
+    10: [nova]
+    11: [nova]
+    12: [teleport, nova]
+    13: [nova]
+    14: [nova]
+    15: [nova]
+    16: [nova]
+    17: [nova]
+    18: [nova, lightning_mastery]
+    19: [nova]
+    20: [nova]
+    21: [nova]
+    22: [nova]
+    23: [nova]
+    24: [lightning_mastery]
+    25: [lightning_mastery]
+
+    # Phase 2: After Respec at 26 - Blizzard Build
+    26: [ice_bolt]
+    27: [ice_bolt, frozen_armor]
+    28: [ice_bolt]
+    29: [ice_bolt]
+    30: [blizzard, cold_mastery]
+    31: [blizzard]
+    32: [blizzard]
+    33: [blizzard]
+    34: [blizzard]
+    35: [blizzard]
+    36: [blizzard]
+    37: [blizzard]
+    38: [blizzard]
+    39: [blizzard]
+    40: [blizzard]
+    41: [blizzard]
+    42: [blizzard]
+    43: [blizzard]
+    44: [blizzard]
+    45: [blizzard]
+    46: [blizzard]
+    47: [blizzard]
+    48: [blizzard]
+    49: [blizzard]
+
+    # Max Glacial Spike (synergy)
+    50: [glacial_spike]
+    51: [glacial_spike]
+    52: [glacial_spike]
+    53: [glacial_spike]
+    54: [glacial_spike]
+    55: [glacial_spike]
+    56: [glacial_spike]
+    57: [glacial_spike]
+    58: [glacial_spike]
+    59: [glacial_spike]
+    60: [glacial_spike]
+    61: [glacial_spike]
+    62: [glacial_spike]
+    63: [glacial_spike]
+    64: [glacial_spike]
+    65: [glacial_spike]
+    66: [glacial_spike]
+    67: [glacial_spike]
+    68: [glacial_spike]
+    69: [glacial_spike]
+
+    # Max Ice Blast (synergy)
+    70: [ice_blast]
+    71: [ice_blast]
+    72: [ice_blast]
+    73: [ice_blast]
+    74: [ice_blast]
+    75: [ice_blast]
+
+# Respec configuration
+respec:
+  level: 26  # Respec at this level
+  build: blizzard_leveling  # Stay on same build (skills change at 26+)
