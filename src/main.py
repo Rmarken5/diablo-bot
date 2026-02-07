@@ -221,7 +221,14 @@ class BotRunner:
                     self.log.info(f"Run completed: {status_str} ({result.run_time:.1f}s)")
 
                     # Track statistics
-                    self.stats_tracker.record_run(result)
+                    self.stats_tracker.record_run(
+                        run_type=self.run_type,
+                        status=result.status.name,
+                        duration=result.run_time,
+                        kills=result.kills,
+                        items_picked=result.items_picked,
+                        error=result.error_message,
+                    )
 
                     # Handle different results
                     if result.status == RunStatus.SUCCESS:
@@ -282,9 +289,11 @@ class BotRunner:
         self.log.info("SESSION SUMMARY")
         self.log.info("=" * 60)
         self.log.info(f"Total runs: {stats.total_runs}")
-        self.log.info(f"Successful: {stats.successful_runs}")
-        self.log.info(f"Failed: {stats.failed_runs}")
-        self.log.info(f"Items picked: {stats.items_picked}")
+        self.log.info(f"Successful: {stats.runs_completed}")
+        self.log.info(f"Failed: {stats.runs_failed}")
+        self.log.info(f"Chickened: {stats.runs_chickened}")
+        self.log.info(f"Items picked: {stats.total_items}")
+        self.log.info(f"Total kills: {stats.total_kills}")
         self.log.info(
             f"Average run time: {stats.average_run_time:.1f}s"
             if stats.average_run_time > 0
@@ -400,9 +409,11 @@ def stats(fmt: str):
 
             stats_dict = {
                 "total_runs": stats_data.total_runs,
-                "successful_runs": stats_data.successful_runs,
-                "failed_runs": stats_data.failed_runs,
-                "items_picked": stats_data.items_picked,
+                "runs_completed": stats_data.runs_completed,
+                "runs_failed": stats_data.runs_failed,
+                "runs_chickened": stats_data.runs_chickened,
+                "total_items": stats_data.total_items,
+                "total_kills": stats_data.total_kills,
                 "average_run_time": stats_data.average_run_time,
             }
             click.echo(json.dumps(stats_dict, indent=2))
@@ -411,9 +422,11 @@ def stats(fmt: str):
             click.echo("STATISTICS")
             click.echo("=" * 60)
             click.echo(f"Total runs: {stats_data.total_runs}")
-            click.echo(f"Successful: {stats_data.successful_runs}")
-            click.echo(f"Failed: {stats_data.failed_runs}")
-            click.echo(f"Items picked: {stats_data.items_picked}")
+            click.echo(f"Successful: {stats_data.runs_completed}")
+            click.echo(f"Failed: {stats_data.runs_failed}")
+            click.echo(f"Chickened: {stats_data.runs_chickened}")
+            click.echo(f"Items picked: {stats_data.total_items}")
+            click.echo(f"Total kills: {stats_data.total_kills}")
             click.echo(
                 f"Average run time: {stats_data.average_run_time:.1f}s"
                 if stats_data.average_run_time > 0
