@@ -32,7 +32,8 @@ class Difficulty(Enum):
 class LevelingPhase(Enum):
     """Leveling phases with associated level ranges and activities."""
     # Normal difficulty
-    NORMAL_EARLY = "normal_early"          # 1-15: Tristram/Countess runs
+    BLOOD_MOOR = "blood_moor"              # 1-8: Blood Moor grinding (true level 1 start)
+    NORMAL_EARLY = "normal_early"          # 8-15: Tristram/Countess runs
     NORMAL_TOMBS = "normal_tombs"          # 13-20: Tal Rasha's Tombs
     NORMAL_COWS = "normal_cows"            # 20-25: Cow Level
     NORMAL_BAAL = "normal_baal"            # 25-40: Normal Baal runs
@@ -68,9 +69,29 @@ class PhaseConfig:
 # ========== Phase Definitions ==========
 
 PHASE_CONFIGS: Dict[LevelingPhase, PhaseConfig] = {
+    LevelingPhase.BLOOD_MOOR: PhaseConfig(
+        phase=LevelingPhase.BLOOD_MOOR,
+        min_level=1,
+        max_level=8,
+        difficulty=Difficulty.NORMAL,
+        act=Act.ACT1,
+        area="Blood Moor",
+        waypoint_act_tab=(260, 120),  # Not used - no waypoint needed
+        waypoint_destination=(260, 170),  # Rogue Encampment (starting point)
+        combat_style="basic",  # Just walk and attack, no teleport
+        teleport_targets=[],  # No teleport at level 1
+        clear_positions=[
+            # Walk around Blood Moor entrance area
+            (960, 450), (850, 400), (1070, 400),
+            (960, 350), (800, 350), (1120, 350),
+            (900, 500), (1020, 500),
+        ],
+        run_timeout=180.0,  # Longer timeout for walking
+    ),
+
     LevelingPhase.NORMAL_EARLY: PhaseConfig(
         phase=LevelingPhase.NORMAL_EARLY,
-        min_level=1,
+        min_level=8,
         max_level=15,
         difficulty=Difficulty.NORMAL,
         act=Act.ACT1,
@@ -310,25 +331,33 @@ class LevelingRun(BaseRun):
                 status=RunStatus.ERROR,
                 error_message=f"Could not waypoint to {self.phase.area}",
             )
+        self.log.info("Waypoint complete, waiting for zone load...")
         time.sleep(1.5)
 
+        self.log.info("Checking health before combat...")
         if not self._check_health():
             return RunResult(status=RunStatus.CHICKEN)
 
         # Step 4: Teleport toward mobs
+        self.log.info("Step 4: Teleporting to mobs")
         self._teleport_to_mobs()
 
         # Step 5: Clear area with appropriate combat style
+        self.log.info("Step 5: Clearing area")
         kills = self._clear_area()
+        self.log.info(f"Area cleared, kills: {kills}")
 
         if not self._check_health():
             return RunResult(status=RunStatus.CHICKEN, kills=kills)
 
         # Step 6: Loot
+        self.log.info("Step 6: Looting")
         time.sleep(0.8)
         items = self._loot_area()
+        self.log.info(f"Loot complete, items: {items}")
 
         # Step 7: Save & Exit for fast restart
+        self.log.info("Step 7: Exiting game")
         self._exit_game()
 
         return RunResult(
@@ -346,6 +375,19 @@ class LevelingRun(BaseRun):
 
     def _waypoint_to_area(self) -> bool:
         """Use waypoint to travel to the leveling area."""
+        # Blood Moor phase doesn't use waypoints - just leave town
+        if self.phase.phase == LevelingPhase.BLOOD_MOOR:
+            self.log.info("Blood Moor phase - leaving town on foot")
+            # Just walk out of town (press right to face exit, then hold W)
+            time.sleep(0.5)
+            self.input.click(1200, 400)  # Click right side to face Blood Moor exit
+            time.sleep(0.3)
+            self.input.key_down("w")  # Start walking forward
+            time.sleep(2.0)  # Walk for 2 seconds
+            self.input.key_up("w")
+            self.log.info("Left town, now in Blood Moor")
+            return True
+
         self.log.info(f"Waypointing to {self.phase.area}")
 
         if not self.town:
@@ -383,6 +425,11 @@ class LevelingRun(BaseRun):
         if not self.combat:
             return
 
+        # Skip if no teleport targets (e.g., level 1 phase)
+        if not self.phase.teleport_targets:
+            self.log.info("No teleport targets - skipping teleport phase")
+            return
+
         self.log.info("Teleporting to mobs")
         for pos in self.phase.teleport_targets:
             if not self._check_health():
@@ -398,12 +445,39 @@ class LevelingRun(BaseRun):
         self.log.info(f"Clearing area ({self.phase.combat_style})")
         kills = 0
 
-        if self.phase.combat_style == "nova":
+        if self.phase.combat_style == "basic":
+            kills = self._clear_with_basic()
+        elif self.phase.combat_style == "nova":
             kills = self._clear_with_nova()
         elif self.phase.combat_style == "blizzard":
             kills = self._clear_with_blizzard()
         elif self.phase.combat_style == "static_blizzard":
             kills = self._clear_with_static_blizzard()
+
+        return kills
+
+    def _clear_with_basic(self) -> int:
+        """Clear using basic attacks (level 1, no teleport)."""
+        kills = 0
+        self.log.info("Using basic combat - walking and attacking")
+
+        for pos in self.phase.clear_positions:
+            if not self._check_health():
+                break
+
+            # Click to move to position
+            self.log.debug(f"Moving to {pos}")
+            self.input.click(pos[0], pos[1])
+            time.sleep(1.0)  # Wait for movement
+
+            # Attack nearby enemies (shift+left click to stand and attack)
+            self.input.key_down("shift")
+            for _ in range(3):  # Attack a few times
+                self.input.click(pos[0] + 50, pos[1], button="left")
+                time.sleep(0.3)
+            self.input.key_up("shift")
+
+            kills += 1  # Approximate
 
         return kills
 
@@ -548,7 +622,9 @@ class LevelingManager:
             return LevelingPhase.NORMAL_COWS
         if level >= 13:
             return LevelingPhase.NORMAL_TOMBS
-        return LevelingPhase.NORMAL_EARLY
+        if level >= 8:
+            return LevelingPhase.NORMAL_EARLY
+        return LevelingPhase.BLOOD_MOOR
 
     def get_phase_config(self, phase: Optional[LevelingPhase] = None) -> PhaseConfig:
         """Get configuration for a phase."""
