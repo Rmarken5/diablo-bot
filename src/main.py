@@ -75,7 +75,6 @@ class BotRunner:
         # Input system
         self.log.info("  - Input controller")
         self.input_ctrl = InputController(
-            config=self.config,
             human_like=self.config.human_like_input,
         )
 
