@@ -69,7 +69,7 @@ class BotRunner:
 
         self.log.info("  - Game state detector")
         self.detector = GameStateDetector(
-            screen_capture=self.capture, template_matcher=self.matcher
+            template_matcher=self.matcher
         )
 
         # Input system
