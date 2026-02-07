@@ -46,6 +46,9 @@ class BaseRun(ABC):
     - Result tracking
     """
 
+    # Hardcoded Save & Exit button position for 1920x1080
+    SAVE_EXIT_BUTTON_POS = (960, 540)
+
     def __init__(
         self,
         config: Optional[Config] = None,
@@ -55,6 +58,8 @@ class BaseRun(ABC):
         town_manager: Optional[TownManager] = None,
         game_detector=None,
         screen_capture=None,
+        menu_navigator=None,
+        loot_manager=None,
     ):
         """
         Initialize base run.
@@ -67,6 +72,8 @@ class BaseRun(ABC):
             town_manager: Town navigation
             game_detector: Game state detector
             screen_capture: Screen capture
+            menu_navigator: Menu navigator (for Save & Exit)
+            loot_manager: Loot detection and pickup
         """
         self.config = config or Config()
         self.input = input_ctrl or InputController()
@@ -75,6 +82,8 @@ class BaseRun(ABC):
         self.town = town_manager
         self.detector = game_detector
         self.capture = screen_capture
+        self.menu = menu_navigator
+        self.loot = loot_manager
         self.log = get_logger()
 
         # Run state
@@ -241,3 +250,30 @@ class BaseRun(ABC):
         if self.capture:
             return self.capture.grab()
         return None
+
+    def _exit_game(self) -> None:
+        """Exit game via Save & Exit with layered fallback.
+
+        1. MenuNavigator.exit_game() (template-based)
+        2. Hardcoded Save & Exit button position
+        3. Escape x2 as last resort
+        """
+        self.log.info("Exiting game")
+
+        if self.menu is not None:
+            try:
+                if self.menu.exit_game():
+                    return
+                self.log.warning("Menu navigator exit_game failed, trying fallback")
+            except Exception as e:
+                self.log.error(f"Menu navigator error during exit: {e}")
+
+        self.input.press("escape")
+        time.sleep(0.5)
+        self.input.click(
+            self.SAVE_EXIT_BUTTON_POS[0],
+            self.SAVE_EXIT_BUTTON_POS[1],
+        )
+        time.sleep(0.5)
+        self.input.press("escape")
+        time.sleep(0.3)

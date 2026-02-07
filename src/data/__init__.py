@@ -15,6 +15,7 @@ from .models import (
     SessionStats,
     SkillAllocation,
 )
+from .statistics import StatisticsTracker, SessionSummary, RunRecord, ItemRecord
 
 __all__ = [
     "Build",
@@ -24,11 +25,15 @@ __all__ = [
     "ConfigManager",
     "DetectedItem",
     "ItemQuality",
+    "ItemRecord",
     "Match",
     "PickitRule",
     "PickitRules",
+    "RunRecord",
     "RunResult",
     "RunType",
     "SessionStats",
+    "SessionSummary",
     "SkillAllocation",
+    "StatisticsTracker",
 ]

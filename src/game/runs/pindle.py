@@ -59,6 +59,8 @@ class PindleRun(BaseRun):
         town_manager: Optional[TownManager] = None,
         game_detector=None,
         screen_capture=None,
+        menu_navigator=None,
+        loot_manager=None,
     ):
         """Initialize Pindleskin run."""
         super().__init__(
@@ -69,6 +71,8 @@ class PindleRun(BaseRun):
             town_manager=town_manager,
             game_detector=game_detector,
             screen_capture=screen_capture,
+            menu_navigator=menu_navigator,
+            loot_manager=loot_manager,
         )
 
         self.log = get_logger()
@@ -173,10 +177,10 @@ class PindleRun(BaseRun):
         if self.detector:
             screen = self._grab_screen()
             if screen is not None:
-                # Would check for town indicators
-                pass
+                if hasattr(self.detector, "is_in_town"):
+                    return self.detector.is_in_town(screen)
 
-        # For now, assume we're in town if starting a run
+        # Fallback: assume we're in town if starting a run
         self.log.debug("Assuming in town")
         return True
 
@@ -190,7 +194,7 @@ class PindleRun(BaseRun):
         self.log.info("Going to red portal")
 
         if self.town:
-            return self.town.go_to_portal()
+            return self.town.go_to_red_portal()
 
         # Fallback: assume portal is nearby
         # In real implementation, would use town navigation
@@ -205,7 +209,13 @@ class PindleRun(BaseRun):
         """
         self.log.info("Entering red portal")
 
-        # Click on portal to enter
+        if self.town:
+            try:
+                return self.town.enter_red_portal()
+            except Exception as e:
+                self.log.warning(f"enter_red_portal failed: {e}, using fallback")
+
+        # Fallback: click on portal position directly
         portal_pos = (
             self.SCREEN_CENTER[0] + self.PORTAL_ENTER_OFFSET[0],
             self.SCREEN_CENTER[1] + self.PORTAL_ENTER_OFFSET[1],
@@ -281,36 +291,22 @@ class PindleRun(BaseRun):
         """
         self.log.info("Looting area")
 
-        # In full implementation, would:
-        # 1. Press show items key
-        # 2. Scan for item labels
-        # 3. Check pickit rules
-        # 4. Click to pickup
+        if self.loot:
+            return self.loot.pickup_all_valid()
 
-        # For now, simulate looting by pressing show items
-        self.input.press("alt")  # Show items
-        time.sleep(0.5)
+        # Fallback: click at known loot positions with show items
+        self.input.key_down("alt")
+        time.sleep(0.3)
 
-        # Scan the loot positions
         items_picked = 0
         for pos in self.LOOT_SCAN_POSITIONS:
-            # Would check for items at this position
-            # Click if valid item found
-            pass
+            self.input.click(pos[0], pos[1])
+            time.sleep(0.15)
+            items_picked += 1
 
-        self.input.key_up("alt")  # Hide items
+        self.input.key_up("alt")
 
         return items_picked
-
-    def _exit_game(self) -> None:
-        """Exit game via save & exit."""
-        self.log.info("Exiting game")
-
-        # Press Escape twice for Save & Exit
-        self.input.press("escape")
-        time.sleep(0.3)
-        self.input.press("escape")
-        time.sleep(0.5)
 
     def find_pindleskin(self, screen: np.ndarray) -> Optional[Tuple[int, int]]:
         """

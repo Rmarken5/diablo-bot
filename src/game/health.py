@@ -62,12 +62,16 @@ class HealthMonitor:
         PotionType.REJUV: 3,   # Slot 3 = rejuvs (emergency)
     }
 
+    # Hardcoded Save & Exit button position for 1920x1080
+    SAVE_EXIT_BUTTON_POS = (960, 540)
+
     def __init__(
         self,
         config: Optional[Config] = None,
         input_ctrl: Optional[InputController] = None,
         game_detector=None,
         screen_capture=None,
+        menu_navigator=None,
     ):
         """
         Initialize health monitor.
@@ -77,11 +81,13 @@ class HealthMonitor:
             input_ctrl: Input controller
             game_detector: Game state detector (for health reading)
             screen_capture: Screen capture
+            menu_navigator: Menu navigator (for proper Save & Exit)
         """
         self.config = config or Config()
         self.input = input_ctrl or InputController()
         self.detector = game_detector
         self.capture = screen_capture
+        self.menu = menu_navigator
         self.log = get_logger()
 
         # State
@@ -337,21 +343,37 @@ class HealthMonitor:
                 self.log.error(f"Chicken callback error: {e}")
 
     def _execute_chicken(self) -> None:
-        """Execute the chicken (game exit) sequence."""
+        """Execute the chicken (game exit) sequence.
+
+        Uses layered fallback:
+        1. MenuNavigator.exit_game() (template-based button detection)
+        2. Hardcoded Save & Exit button position
+        3. Escape x2 as last resort
+        """
         self.log.info("Executing chicken sequence...")
 
-        # Method 1: Save & Exit via menu
-        # Press Escape to open menu
-        self.input.press("escape")
-        time.sleep(0.3)
+        # Method 1: Use MenuNavigator if available
+        if self.menu is not None:
+            try:
+                if self.menu.exit_game():
+                    self.log.info("Chicken sequence complete (menu navigator)")
+                    return
+                self.log.warning("Menu navigator exit_game failed, trying fallback")
+            except Exception as e:
+                self.log.error(f"Menu navigator error: {e}")
 
-        # Press Escape again for Save & Exit (or click the button)
-        # In D2R, pressing Escape twice should save & exit
+        # Method 2: Press Escape to open menu, click Save & Exit at known position
         self.input.press("escape")
         time.sleep(0.5)
+        self.input.click(
+            self.SAVE_EXIT_BUTTON_POS[0],
+            self.SAVE_EXIT_BUTTON_POS[1],
+        )
+        time.sleep(0.5)
 
-        # Alternative: Use the quit hotkey if configured
-        # Some people bind a key to quit
+        # Method 3: Press Escape again as last resort (closes menu or triggers exit)
+        self.input.press("escape")
+        time.sleep(0.3)
 
         self.log.info("Chicken sequence complete")
 

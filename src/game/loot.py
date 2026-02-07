@@ -5,9 +5,11 @@ from dataclasses import dataclass, field
 from enum import Enum, auto
 from typing import Dict, List, Optional, Tuple
 
+import cv2
 import numpy as np
 
 from src.data.models import Config, DetectedItem, PickitRules
+from src.data.models import ItemQuality as ModelItemQuality
 from src.input.controller import InputController
 from src.utils.logger import get_logger
 
@@ -55,6 +57,15 @@ QUALITY_COLORS = {
         "lower": (0, 100, 200),
         "upper": (80, 180, 255),
     },
+}
+
+# Map loot ItemQuality -> model ItemQuality for pickit rule checks
+QUALITY_TO_MODEL = {
+    ItemQuality.GOLD: ModelItemQuality.UNIQUE,
+    ItemQuality.GREEN: ModelItemQuality.SET,
+    ItemQuality.YELLOW: ModelItemQuality.RARE,
+    ItemQuality.BLUE: ModelItemQuality.MAGIC,
+    ItemQuality.WHITE: ModelItemQuality.NORMAL,
 }
 
 
@@ -138,13 +149,13 @@ class LootManager:
 
     def scan_for_items(self, screen: np.ndarray = None) -> List[LootItem]:
         """
-        Scan screen for item labels.
+        Scan screen for item labels using color-based detection.
 
         Args:
             screen: Screen capture (will grab if not provided)
 
         Returns:
-            List of detected items
+            List of detected items sorted by quality (best first)
         """
         if screen is None:
             if self.capture is None:
@@ -153,19 +164,101 @@ class LootManager:
 
         items = []
 
-        # In full implementation, would:
-        # 1. Crop to scan region
-        # 2. Find text-like regions (high contrast horizontal bands)
-        # 3. Extract label bounds
-        # 4. Detect color/quality
-        # 5. OCR for item name (optional)
+        # Crop to scan region
+        r = self.SCAN_REGION
+        cropped = screen[r["y"]:r["y"] + r["height"], r["x"]:r["x"] + r["width"]]
 
-        # For now, return placeholder
+        for quality, color_range in QUALITY_COLORS.items():
+            lower = np.array(color_range["lower"], dtype=np.uint8)
+            upper = np.array(color_range["upper"], dtype=np.uint8)
+
+            mask = cv2.inRange(cropped, lower, upper)
+            contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+            for contour in contours:
+                x, y, w, h = cv2.boundingRect(contour)
+
+                if not (self.MIN_LABEL_WIDTH <= w <= self.MAX_LABEL_WIDTH and
+                        self.MIN_LABEL_HEIGHT <= h <= self.MAX_LABEL_HEIGHT):
+                    continue
+
+                # Adjust position for region offset, use center of bounding rect
+                cx = x + w // 2 + r["x"]
+                cy = y + h // 2 + r["y"]
+
+                items.append(LootItem(
+                    position=(cx, cy),
+                    quality=quality,
+                    width=w,
+                    height=h,
+                    confidence=1.0,
+                ))
+
+        items = self._deduplicate_items(items)
+
+        # Sort: uniques/sets first, then by quality value
+        quality_priority = {
+            ItemQuality.GOLD: 0,
+            ItemQuality.GREEN: 1,
+            ItemQuality.YELLOW: 2,
+            ItemQuality.ORANGE: 3,
+            ItemQuality.BLUE: 4,
+            ItemQuality.GRAY: 5,
+            ItemQuality.WHITE: 6,
+            ItemQuality.UNKNOWN: 7,
+        }
+        items.sort(key=lambda it: quality_priority.get(it.quality, 99))
+
         self.stats.items_scanned = len(items)
         self.stats.last_scan_time = time.time()
         self._last_items = items
 
         return items
+
+    def _deduplicate_items(self, items: List[LootItem], threshold: int = 30) -> List[LootItem]:
+        """
+        Merge items within threshold pixels of each other.
+
+        Prefers higher quality when merging duplicates.
+
+        Args:
+            items: List of detected items
+            threshold: Pixel distance to consider duplicates
+
+        Returns:
+            Deduplicated list
+        """
+        if not items:
+            return items
+
+        quality_rank = {
+            ItemQuality.GOLD: 0,
+            ItemQuality.GREEN: 1,
+            ItemQuality.YELLOW: 2,
+            ItemQuality.ORANGE: 3,
+            ItemQuality.BLUE: 4,
+            ItemQuality.GRAY: 5,
+            ItemQuality.WHITE: 6,
+            ItemQuality.UNKNOWN: 7,
+        }
+
+        merged: List[LootItem] = []
+        for item in items:
+            found_merge = False
+            for existing in merged:
+                dx = abs(item.position[0] - existing.position[0])
+                dy = abs(item.position[1] - existing.position[1])
+                if dx <= threshold and dy <= threshold:
+                    # Keep the higher quality item
+                    if quality_rank.get(item.quality, 99) < quality_rank.get(existing.quality, 99):
+                        existing.quality = item.quality
+                        existing.position = item.position
+                    found_merge = True
+                    break
+            if not found_merge:
+                merged.append(item)
+
+        return merged
 
     def detect_quality(self, screen: np.ndarray, position: Tuple[int, int]) -> ItemQuality:
         """
@@ -256,41 +349,19 @@ class LootManager:
         Returns:
             True if should pickup
         """
-        item_name_lower = item.name.lower()
+        # Map loot quality to model quality
+        model_quality = QUALITY_TO_MODEL.get(item.quality)
 
-        # Always pick up gold
-        if "gold" in item_name_lower:
+        # Check quality-based pickup list
+        if model_quality and model_quality in self.pickit.pickup_qualities:
             return True
 
-        # Check name-based rules first (high priority)
-        for pattern in self.pickit.always_pickup:
-            if pattern.lower() in item_name_lower:
-                return True
-
-        for pattern in self.pickit.never_pickup:
-            if pattern.lower() in item_name_lower:
-                return False
-
-        # Check quality-based rules
-        quality = item.quality
-
-        if quality == ItemQuality.GOLD:  # Unique
-            return self.pickit.pickup_uniques
-
-        if quality == ItemQuality.GREEN:  # Set
-            return self.pickit.pickup_sets
-
-        if quality == ItemQuality.YELLOW:  # Rare
-            return self.pickit.pickup_rares
-
-        if quality == ItemQuality.BLUE:  # Magic
-            return self.pickit.pickup_magic
-
-        if quality == ItemQuality.WHITE:
-            return self.pickit.pickup_white
-
-        if quality == ItemQuality.GRAY:  # Socketed
-            return self.pickit.pickup_socketed
+        # Check specific rules
+        for rule in self.pickit.rules:
+            if rule.quality and model_quality and rule.quality == model_quality:
+                return rule.pickup
+            if rule.name_contains and item.name and rule.name_contains.lower() in item.name.lower():
+                return rule.pickup
 
         return False
 

@@ -534,11 +534,14 @@ class TownManager:
         self.input.press("escape")
         time.sleep(0.3)
 
-    def town_routine(self) -> bool:
+    def town_routine(self, inventory_manager=None) -> bool:
         """
         Execute standard town routine.
 
         Heal -> Repair -> Identify -> Stash
+
+        Args:
+            inventory_manager: InventoryManager for stashing items
 
         Returns:
             True if routine completed
@@ -561,9 +564,12 @@ class TownManager:
             self.close_dialog()
 
         # 4. Stash items
-        self.open_stash()
-        # TODO: Implement actual stashing logic
-        self.close_stash()
+        if self.open_stash():
+            time.sleep(0.5)
+            if inventory_manager:
+                inventory_manager.stash_all_items()
+            time.sleep(0.3)
+            self.close_stash()
 
         self.log.info("Town routine complete")
         return True

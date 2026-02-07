@@ -12,16 +12,16 @@
 - [x] Step 8: Basic Game Interaction (Menu Navigation)
 - [x] Step 9: Town Navigation and NPC Interaction
 - [x] Step 10: Combat System (Sorceress)
-- [ ] Step 11: Health Monitoring and Chicken System
-- [ ] Step 12: Pindleskin Run Implementation
-- [ ] Step 13: Loot Detection and Pickup
-- [ ] Step 14: Inventory and Stash Management
-- [ ] Step 15: Mephisto Run Implementation
-- [ ] Step 16: Statistics and Logging System
-- [ ] Step 17: Error Recovery System
-- [ ] Step 18: Leveling System (Skill/Stat Allocation)
-- [ ] Step 19: Full Leveling Journey Integration
-- [ ] Step 20: Polish, Testing, and Documentation
+- [x] Step 11: Health Monitoring and Chicken System
+- [x] Step 12: Pindleskin Run Implementation
+- [x] Step 13: Loot Detection and Pickup
+- [x] Step 14: Inventory and Stash Management
+- [x] Step 15: Mephisto Run Implementation
+- [x] Step 16: Statistics and Logging System
+- [x] Step 17: Error Recovery System
+- [x] Step 18: Leveling System (Skill/Stat Allocation)
+- [x] Step 19: Full Leveling Journey Integration
+- [x] Step 20: Polish, Testing, and Documentation
 
 ---
 
