@@ -303,12 +303,17 @@ class GameStateDetector:
         Returns:
             Fill percentage (0.0 to 1.0)
         """
+        # Safety check for invalid screen
+        if screen is None or screen.size == 0:
+            self.log.debug("Invalid screen for orb detection, assuming full")
+            return 1.0  # Assume full health/mana when can't detect
+
         x, y, w, h = region
 
         # Bounds check
         if y + h > screen.shape[0] or x + w > screen.shape[1]:
-            self.log.warning(f"Region {region} out of bounds for screen {screen.shape}")
-            return 0.0
+            self.log.debug(f"Region {region} out of bounds for screen {screen.shape}, assuming full")
+            return 1.0  # Assume full when can't detect (safer than 0.0)
 
         # Extract orb region
         orb = screen[y:y+h, x:x+w]
@@ -319,6 +324,11 @@ class GameStateDetector:
         # Count colored pixels
         colored_pixels = cv2.countNonZero(mask)
         total_pixels = w * h
+
+        # If no colored pixels detected, might be detection issue - assume full
+        if colored_pixels == 0:
+            self.log.debug("No colored pixels detected in orb, assuming full (may need calibration)")
+            return 1.0
 
         # Calculate percentage
         # Note: This is a simple approximation. The actual orb is circular,
