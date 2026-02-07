@@ -391,9 +391,20 @@ class GameStateDetector:
             "hud/town_indicator",
             "npcs/stash",  # Stash is only in town
         ]
+
+        templates_available = False
         for template in town_templates:
-            if self.matcher.find(screen, template, threshold=0.7):
+            match = self.matcher.find(screen, template, threshold=0.7)
+            if match:
                 return True
+            # Check if template was actually loaded (not just failed to match)
+            if hasattr(self.matcher, '_cache') and template in self.matcher._cache:
+                templates_available = True
+
+        # If no templates are available, assume we're in town (development mode)
+        if not templates_available:
+            self.log.debug("Town detection templates not available, assuming in town")
+            return True
 
         return False
 
