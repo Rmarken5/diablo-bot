@@ -91,23 +91,22 @@ class BotRunner:
         self.menu_nav = MenuNavigator(
             config=self.config,
             input_ctrl=self.input_ctrl,
-            detector=self.detector,
-            matcher=self.matcher,
-            capture=self.capture,
+            template_matcher=self.matcher,
+            screen_capture=self.capture,
         )
 
         self.log.info("  - Town manager")
         self.town_manager = TownManager(
             config=self.config,
             input_ctrl=self.input_ctrl,
-            detector=self.detector,
-            matcher=self.matcher,
-            capture=self.capture,
+            template_matcher=self.matcher,
+            screen_capture=self.capture,
         )
 
         self.log.info("  - Combat system")
         self.combat = SorceressCombat(
-            config=self.config, input_ctrl=self.input_ctrl, detector=self.detector
+            config=self.config,
+            input_ctrl=self.input_ctrl,
         )
 
         self.log.info("  - Loot manager")
@@ -120,28 +119,26 @@ class BotRunner:
         self.loot_manager = LootManager(
             config=self.config,
             input_ctrl=self.input_ctrl,
-            detector=self.detector,
-            capture=self.capture,
-            matcher=self.matcher,
+            screen_capture=self.capture,
             pickit_rules=pickit_rules,
         )
 
         # Level manager (for leveling runs)
+        self.build = None
         if self.run_type == "level":
             self.log.info("  - Level manager")
             try:
-                build = self.config_manager.get_build(self.config.build_name)
+                self.build = self.config_manager.get_build(self.config.build_name)
             except Exception as e:
                 self.log.warning(f"Could not load build: {e}, using defaults")
-                build = None
+                self.build = None
 
             self.level_manager = LevelManager(
                 config=self.config,
+                build=self.build,
                 input_ctrl=self.input_ctrl,
-                detector=self.detector,
-                matcher=self.matcher,
-                capture=self.capture,
-                build=build,
+                screen_capture=self.capture,
+                game_detector=self.detector,
             )
 
         # Error handler
@@ -179,7 +176,10 @@ class BotRunner:
         elif self.run_type == "level":
             # Leveling run uses LevelingManager
             self.run_executor = LevelingManager(
-                **common_args, level_manager=self.level_manager
+                **common_args,
+                build=self.build,
+                level_manager=self.level_manager,
+                statistics=self.stats_tracker,
             )
         else:
             raise ValueError(f"Unknown run type: {self.run_type}")
