@@ -678,6 +678,17 @@ class LevelingManager:
         self._current_run = None
         return result
 
+    def execute(self) -> RunResult:
+        """
+        Execute a single leveling run (alias for execute_single_run).
+
+        This method provides compatibility with the BaseRun interface.
+
+        Returns:
+            RunResult from the run
+        """
+        return self.execute_single_run()
+
     def execute_leveling_session(self, max_runs: int = 0) -> None:
         """
         Execute a full leveling session.
