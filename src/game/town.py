@@ -82,6 +82,14 @@ DIALOG_TEMPLATES = {
 # Screen positions for common actions (1920x1080)
 # These are fallback positions when templates aren't found
 SCREEN_POSITIONS = {
+    # Act 1 Rogue Encampment approximate positions (1920x1080)
+    "act1_stash": (950, 450),
+    "act1_waypoint": (980, 380),
+    "act1_akara": (850, 350),
+    "act1_charsi": (1050, 350),
+    "act1_kashya": (920, 320),
+    "act1_cain": (880, 400),
+
     # Act 5 Harrogath approximate positions
     "act5_stash": (175, 280),
     "act5_waypoint": (100, 130),

@@ -287,6 +287,11 @@ class LevelingRun(BaseRun):
         kills = 0
         items = 0
 
+        # Set current act for town manager
+        if self.town:
+            self.town.set_act(self.phase.act)
+            self.log.info(f"Set town act to {self.phase.act.name}")
+
         # Step 1: Ensure in town
         if not self._ensure_in_town():
             return RunResult(status=RunStatus.ERROR, error_message="Not in town")
@@ -344,14 +349,18 @@ class LevelingRun(BaseRun):
         self.log.info(f"Waypointing to {self.phase.area}")
 
         if not self.town:
+            self.log.warning("No town manager available, skipping waypoint")
             return False
 
+        self.log.info("Opening waypoint...")
         if not self.town.use_waypoint():
+            self.log.error("Failed to open waypoint")
             return False
 
         time.sleep(0.5)
 
         # Click the correct act tab
+        self.log.info(f"Clicking act tab at {self.phase.waypoint_act_tab}")
         self.input.click(
             self.phase.waypoint_act_tab[0],
             self.phase.waypoint_act_tab[1],
@@ -359,12 +368,14 @@ class LevelingRun(BaseRun):
         time.sleep(0.3)
 
         # Click the destination waypoint
+        self.log.info(f"Clicking waypoint destination at {self.phase.waypoint_destination}")
         self.input.click(
             self.phase.waypoint_destination[0],
             self.phase.waypoint_destination[1],
         )
         time.sleep(0.5)
 
+        self.log.info("Waypoint travel complete")
         return True
 
     def _teleport_to_mobs(self) -> None:
