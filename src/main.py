@@ -82,8 +82,9 @@ class BotRunner:
         self.log.info("  - Health monitor")
         self.health_monitor = HealthMonitor(
             config=self.config,
-            detector=self.detector,
+            game_detector=self.detector,
             input_ctrl=self.input_ctrl,
+            screen_capture=self.capture,
         )
 
         self.log.info("  - Menu navigator")
