@@ -107,6 +107,8 @@ class HealthMonitor:
         self._thread: Optional[threading.Thread] = None
         self._lock = threading.Lock()
         self.check_interval = 0.1  # 100ms between checks
+        self._start_time = 0.0  # Track when monitoring started
+        self._grace_period = 2.0  # Don't trigger chicken in first 2 seconds
 
         # Callbacks
         self._on_chicken: Optional[Callable] = None
@@ -135,6 +137,7 @@ class HealthMonitor:
 
         self._running = True
         self.state.chicken_triggered = False
+        self._start_time = time.time()
         self._thread = threading.Thread(target=self._monitor_loop, daemon=True)
         self._thread.start()
         self.log.info(f"Health monitor started (chicken at {self.chicken_health}%)")
@@ -180,11 +183,21 @@ class HealthMonitor:
     def _update_health_state(self) -> None:
         """Update health/mana readings from game."""
         if self.detector is None or self.capture is None:
-            # No detector - can't read health
+            # No detector - can't read health, assume safe
+            with self._lock:
+                self.state.health_percent = 100.0
+                self.state.mana_percent = 100.0
             return
 
         try:
             screen = self.capture.grab()
+            if screen is None or screen.size == 0:
+                # Invalid screen capture, assume safe
+                with self._lock:
+                    self.state.health_percent = 100.0
+                    self.state.mana_percent = 100.0
+                return
+
             health = self.detector.get_health_percent(screen)
             mana = self.detector.get_mana_percent(screen)
 
@@ -193,6 +206,10 @@ class HealthMonitor:
                 self.state.mana_percent = mana
         except Exception as e:
             self.log.debug(f"Failed to read health: {e}")
+            # On error, assume safe
+            with self._lock:
+                self.state.health_percent = 100.0
+                self.state.mana_percent = 100.0
 
     def _evaluate_status(self) -> HealthStatus:
         """Evaluate current health status."""
@@ -216,6 +233,16 @@ class HealthMonitor:
         """Handle critical (chicken) situation."""
         if self.state.chicken_triggered:
             return  # Already triggered
+
+        # Grace period check - don't chicken immediately after starting
+        # This prevents false positives from screen capture initialization
+        elapsed = time.time() - self._start_time
+        if elapsed < self._grace_period:
+            self.log.debug(
+                f"Low health detected ({self.state.health_percent:.0f}%) but in grace period "
+                f"({elapsed:.1f}s < {self._grace_period}s), ignoring"
+            )
+            return
 
         self.log.warning(
             f"CRITICAL: Health at {self.state.health_percent:.0f}% "
