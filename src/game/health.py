@@ -107,7 +107,7 @@ class HealthMonitor:
         self._thread: Optional[threading.Thread] = None
         self._lock = threading.Lock()
         self.check_interval = 0.1  # 100ms between checks
-        self._start_time = 0.0  # Track when monitoring started
+        self._start_time = time.time()  # Initialize to current time
         self._grace_period = 2.0  # Don't trigger chicken in first 2 seconds
 
         # Callbacks
@@ -286,6 +286,17 @@ class HealthMonitor:
         """
         self._update_health_state()
         status = self._evaluate_status()
+
+        # If critical but in grace period, return True (safe)
+        if status == HealthStatus.CRITICAL:
+            elapsed = time.time() - self._start_time
+            if elapsed < self._grace_period:
+                self.log.debug(
+                    f"Health check: CRITICAL ({self.state.health_percent:.0f}%) but in grace period, "
+                    f"returning safe"
+                )
+                return True
+
         return status != HealthStatus.CRITICAL
 
     def get_health_percent(self) -> float:
